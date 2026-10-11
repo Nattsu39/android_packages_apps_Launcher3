@@ -31,6 +31,7 @@ import static com.android.launcher3.testing.shared.ResourceUtils.pxFromDp;
 import static com.android.launcher3.util.OverviewReleaseFlags.enableGridOnlyOverview;
 import static com.android.wm.shell.Flags.enableBubbleBar;
 import static com.android.wm.shell.Flags.enableBubbleBarOnPhones;
+import static com.android.wm.shell.Flags.enableTaskbarOnPhones;
 import static com.android.wm.shell.Flags.enableTinyTaskbar;
 
 import static java.lang.Math.max;
@@ -288,7 +289,12 @@ public class DeviceProfile {
         mIsScalableGrid = inv.isScalable && !isVerticalBarLayout() && !isExternalDisplay;
         // Determine device posture.
         mInfo = info;
-        boolean taskbarOrBubbleBarOnPhones = enableTinyTaskbar()
+        // NX809J: enableTinyTaskbar() is fused OFF in this build, but its sibling
+        // enableTaskbarOnPhones() is ENABLED (and SystemUI's navbar already uses it).
+        // Honor it too, so phones with desktop windowing (config_canInternalDisplayHostDesktops)
+        // get a real taskbar (with app drawer) instead of nav-only — required for desktop
+        // mode to launch apps.
+        boolean taskbarOrBubbleBarOnPhones = enableTinyTaskbar() || enableTaskbarOnPhones()
                 || (enableBubbleBar() && enableBubbleBarOnPhones());
         isTaskbarPresent =
                 (mDeviceProperties.isTablet() || (taskbarOrBubbleBarOnPhones && isGestureMode))

@@ -103,8 +103,14 @@ class TaskContentView @JvmOverloads constructor(context: Context, attrs: Attribu
     private var activeFocusAnimator: AnimatorSet? = null
     private var activeHoverAnimator: AnimatorSet? = null
 
-    private val focusBorderColor: Int
-    private val hoverBorderColor: Int
+    private val focusBorderColor: Int =
+        context.obtainStyledAttributes(attrs, R.styleable.TaskContentView).use {
+            it.getColor(R.styleable.TaskContentView_focusBorderColor, DEFAULT_BORDER_COLOR)
+        }
+    private val hoverBorderColor: Int =
+        context.obtainStyledAttributes(attrs, R.styleable.TaskContentView).use {
+            it.getColor(R.styleable.TaskContentView_hoverBorderColor, DEFAULT_BORDER_COLOR)
+        }
 
     private val focusBorderAnimator: BorderAnimator by lazy {
         createSimpleBorderAnimator(
@@ -176,12 +182,6 @@ class TaskContentView @JvmOverloads constructor(context: Context, attrs: Attribu
 
     init {
         setWillNotDraw(false)
-        context.obtainStyledAttributes(attrs, R.styleable.TaskContentView).use {
-            focusBorderColor =
-                it.getColor(R.styleable.TaskContentView_focusBorderColor, DEFAULT_BORDER_COLOR)
-            hoverBorderColor =
-                it.getColor(R.styleable.TaskContentView_hoverBorderColor, DEFAULT_BORDER_COLOR)
-        }
     }
 
     override fun onFinishInflate() {
