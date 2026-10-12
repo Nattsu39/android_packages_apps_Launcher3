@@ -37,7 +37,6 @@ import androidx.dynamicanimation.animation.SpringForce
 import com.android.app.animation.Interpolators.LINEAR
 import com.android.launcher3.AbstractFloatingView.TYPE_TASK_MENU
 import com.android.launcher3.AbstractFloatingView.getTopOpenViewWithType
-import com.android.launcher3.views.ActivityContext
 import com.android.launcher3.Flags.enableDesktopExplodedView
 import com.android.launcher3.Flags.enableOverviewOnConnectedDisplays
 import com.android.launcher3.PagedView.INVALID_PAGE
@@ -602,7 +601,7 @@ class RecentsViewUtils(private val recentsView: RecentsView<*, *>) : DesktopVisi
     }
 
     private fun getTaskMenu(): TaskMenuView? =
-        getTopOpenViewWithType(recentsView.mContainer as ActivityContext, TYPE_TASK_MENU) as? TaskMenuView
+        getTopOpenViewWithType(recentsView.mContainer, TYPE_TASK_MENU) as? TaskMenuView
 
     fun taskMenuIsOpen(): Boolean {
         if (enableOverviewIconMenu()) {

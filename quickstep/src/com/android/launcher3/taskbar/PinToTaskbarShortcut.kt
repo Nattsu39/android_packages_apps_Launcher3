@@ -151,14 +151,14 @@ constructor(
     private fun sendAccessibilityAnnouncement(shortcutView: View?) {
         if (
             shortcutView == null ||
-                (mTarget as Any?) == null ||
+                mTarget == null ||
                 !AccessibilityManager.getInstance(mTarget).isEnabled
         ) {
             return
         }
         val announcementText =
-            if (isPin) mTarget!!.getString(R.string.app_added_to_taskbar)
-            else mTarget!!.getString(R.string.app_removed_from_taskbar)
+            if (isPin) mTarget.getString(R.string.app_added_to_taskbar)
+            else mTarget.getString(R.string.app_removed_from_taskbar)
 
         shortcutView.setContentDescription(announcementText)
         shortcutView.sendAccessibilityEventUnchecked(

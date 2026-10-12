@@ -90,7 +90,7 @@ constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int = 0) :
             recentsViewContainer.deviceProfile.overviewActionsClaimedSpaceBelow
     }
     private val minMenuTop by lazy { iconView.height.toFloat() }
-    private val maxMenuBottom by lazy { taskbarTop - recentsViewContainer.dragLayer.getInsets().top }
+    private val maxMenuBottom by lazy { taskbarTop - recentsViewContainer.dragLayer.insets.top }
 
     init {
         clipToOutline = true
@@ -214,7 +214,7 @@ constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int = 0) :
             else containerView,
             tempRect,
         )
-        val insets = recentsViewContainer.dragLayer.getInsets()
+        val insets = recentsViewContainer.dragLayer.insets
         val params = layoutParams as BaseDragLayer.LayoutParams
         params.width =
             orientationHandler.getTaskMenuWidth(containerView, deviceProfile, stagePosition)
@@ -258,7 +258,7 @@ constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int = 0) :
                     orientationHandler.isLayoutNaturalToLauncher &&
                     isLayoutRtl
             )
-                -((recentsViewContainer.dragLayer as android.view.View).width - tempRect.right - insets.right).toFloat()
+                -(recentsViewContainer.dragLayer.width - tempRect.right - insets.right).toFloat()
             else (tempRect.left - insets.left).toFloat()
         val thumbnailAlignedY = (tempRect.top - insets.top).toFloat()
 
